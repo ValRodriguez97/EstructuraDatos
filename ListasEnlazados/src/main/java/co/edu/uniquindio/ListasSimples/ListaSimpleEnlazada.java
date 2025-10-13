@@ -95,6 +95,25 @@ public class ListaSimpleEnlazada<T extends Comparable<? super T>> implements Ite
         } while (cambiado);
     }
 
+    /**
+     * Método para obtener numeros que estan en posiciones impares
+     * @return
+     */
+    public ListaSimpleEnlazada<T> obtenerElementosPosicionesImpares(){
+        ListaSimpleEnlazada<T> impares = new ListaSimpleEnlazada<>();
+        Nodo<T> actual = primero;
+        int posicion = 0;
+
+        while (actual != null) {
+            if(posicion % 2 != 0){
+                impares.agregarUltimo(actual.getDato());
+            }
+            actual = actual.getProximo();
+            posicion++;
+        }
+        return impares;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
