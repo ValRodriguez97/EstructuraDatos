@@ -1,6 +1,9 @@
 package co.edu.uniquindio.ListasDoblementeEnlazadas;
 
-public class ListaDobleEnlazada<T extends Comparable<? super T>> {
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ListaDobleEnlazada<T extends Comparable<? super T>>  implements  Iterable<T>{
 
     private Nodo<T> primero;
     private Nodo<T> ultimo;
@@ -96,5 +99,57 @@ public class ListaDobleEnlazada<T extends Comparable<? super T>> {
                 actual = actual.siguiente;
             }
         } while (cambiado);
+    }
+
+    /**
+     * Método imprimirHaciaAtras
+     */
+    public void imprimirHaciaAtras(){
+        Nodo<T> actual = ultimo;
+        System.out.println("[");
+        while (actual != null){
+            System.out.println(actual.dato);
+            if (actual.previo != null) System.out.println(" ");
+                actual = actual.previo;
+        }
+        System.out.println("]");
+    }
+
+    /**
+     * Personas que tiene cedula con cantidd par
+     */
+    public ListaDobleEnlazada<Persona> obtenerPersonasCedulaPar(){
+        ListaDobleEnlazada<Persona> cedulaPar = new ListaDobleEnlazada<>();
+        Nodo<T> actual = primero;
+
+        while (actual != null){
+            if (actual.dato instanceof  Persona persona){
+                if(persona.getCedula().length() % 2 == 0){
+                    cedulaPar.agregarUltimo(persona);
+                }
+            }
+            actual = actual.siguiente;
+        }
+        return cedulaPar;
+    }
+
+    @Override
+    public Iterator<T> iterator(){
+        return new Iterator<T>() {
+            private Nodo<T> actual = primero;
+
+            @Override
+            public boolean hasNext() {
+                return actual != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                T dato = actual.dato;
+                actual = actual.siguiente;
+                return dato;
+            }
+        };
     }
 }
