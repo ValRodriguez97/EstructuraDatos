@@ -190,6 +190,26 @@ public class ListaSimpleEnlazada<T extends Comparable<? super T>> implements Ite
          return aux;
     }
 
+    /**
+     * Método que permite concatenar dos listas simples enlazadas
+     * @param lista1 Primera lista a concatenar
+     * @param lista2 Segunda lista a concatenar
+     * @return Nueva lista que contiene los elementos de las dos listas
+     */
+    public static <T extends Comparable <? super T>> ListaSimpleEnlazada<T>
+    concatenarListas(ListaSimpleEnlazada<T> lista1, ListaSimpleEnlazada<T> lista2){
+        ListaSimpleEnlazada<T> nuevaLista = new ListaSimpleEnlazada<>();
+
+        for(T dato: lista1){
+            nuevaLista.agregarUltimo(dato);
+        }
+
+        for(T dato : lista2){
+            nuevaLista.agregarUltimo(dato);
+        }
+        return nuevaLista;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {

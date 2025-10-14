@@ -64,6 +64,18 @@ public class MainListaSimple {
         System.out.println("Personas en posiciones impares: ");
         personasImpares.mostrar();
 
+        //Concatenar dos listas
+        ListaSimpleEnlazada<Integer> lista1 = new ListaSimpleEnlazada<>();
+        lista1.agregarUltimo(1);
+        lista1.agregarUltimo(2);
+        lista1.agregarUltimo(3);
+
+        ListaSimpleEnlazada<Integer> lista2 = new ListaSimpleEnlazada<>();
+        lista2.agregarUltimo(4);
+        lista2.agregarUltimo(5);
+
+        ListaSimpleEnlazada<Integer> listaConcatenada = ListaSimpleEnlazada.concatenarListas(lista1, lista2);
+        listaConcatenada.mostrar();
 
     }
 }
