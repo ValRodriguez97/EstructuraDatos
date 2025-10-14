@@ -32,28 +32,41 @@ public class ListaCircularSimple<T extends Comparable<? super T>> {
         tam++;
     }
 
-    public void agregarSegunPosicion(T dato, int posicion) {
+    public void insertar(T dato, int posicion) {
         if (posicion < 0 || posicion > tam) throw new IndexOutOfBoundsException("Posición inválida");
         Nodo<T> nuevo = new Nodo<>(dato);
-        if (posicion == 0) {
-            if (ultimo == null) {
-                ultimo = nuevo;
-                ultimo.siguiente = ultimo;
-            } else {
-                nuevo.siguiente = ultimo.siguiente;
-                ultimo.siguiente = nuevo;
+
+        if (ultimo == null){
+            ultimo = nuevo;
+            ultimo.siguiente = ultimo;
+        } else if (posicion == 0) {
+            nuevo.siguiente = ultimo.siguiente;
+            ultimo.siguiente = nuevo;
+        } else {
+            Nodo<T> actual = ultimo.siguiente;
+            for (int i = 0; i < posicion -1; i++){
+                actual = actual.siguiente;
             }
-            tam++;
-            return;
+            nuevo.siguiente = actual.siguiente;
+            actual.siguiente = nuevo;
+            if (actual == ultimo){
+                ultimo = nuevo;
+            }
         }
-        Nodo<T> actual = ultimo.siguiente;
-        for (int i = 0; i < posicion - 1; i++) {
-            actual = actual.siguiente;
-        }
-        nuevo.siguiente = actual.siguiente;
-        actual.siguiente = nuevo;
-        if (actual == ultimo) ultimo = nuevo;
         tam++;
+    }
+
+    /**
+     * Metodo buscar
+     */
+    public boolean buscar(T dato){
+        if(ultimo == null) return false;
+        Nodo<T> actual = ultimo.siguiente;
+        do {
+            if (actual.dato.equals(dato)) return true;
+            actual = actual.siguiente;
+        } while (actual != ultimo.siguiente);
+        return false;
     }
 
     public void mostrar() {
