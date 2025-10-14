@@ -114,6 +114,82 @@ public class ListaSimpleEnlazada<T extends Comparable<? super T>> implements Ite
         return impares;
     }
 
+    /**
+     * Método para obtener personas con cedulas pares
+     * @return
+     */
+    public ListaSimpleEnlazada<T> obtenerCedulasPares(){
+        ListaSimpleEnlazada<T> listaCedulasPares = new ListaSimpleEnlazada<>();
+
+        Nodo<T> actual = primero;
+        while(actual != null){
+            T dato = actual.getDato();
+            if(dato instanceof Persona){
+                Persona persona = (Persona)dato;
+                if(persona.getCedula() == null && persona.getCedula().length() % 2 == 0){
+                    listaCedulasPares.agregarUltimo(dato);
+                }
+            }
+            actual = actual.getProximo();
+        }
+        return listaCedulasPares;
+    }
+
+    /**
+     * Método para eliminar numeros pares
+     * @return
+     */
+    public void eliminarNumerosPares(){
+        while (primero != null && primero.getDato() instanceof  Integer && ((Integer) primero.getDato()) % 2 ==0){
+            primero = primero.getProximo();
+            tam--;
+        }
+
+        Nodo<T> actual = primero;
+        while(actual != null && actual.getProximo() !=  null){
+            T dato = actual.getProximo().getDato();
+            if (dato instanceof  Integer && ((Integer) dato) % 2 == 0){
+                actual.setProximo(actual.getProximo().getProximo());
+                tam--;
+            } else {
+                actual = actual.getProximo();
+            }
+        }
+    }
+
+    /**
+     * Método que retorne valores impares de una lista de numeros
+     * @return
+     */
+    public ListaSimpleEnlazada<Integer> obtenerNumerosImpares(){
+        ListaSimpleEnlazada<Integer> impares = new ListaSimpleEnlazada<>();
+        Nodo<T> actual = primero;
+        while (actual != null) {
+            Integer valor = (Integer) actual.getDato();
+            if(valor % 2 != 0){
+                impares.agregarUltimo(valor);
+            }
+            actual = actual.getProximo();
+        }
+        return impares;
+    }
+
+    /**
+     * Método que retorna la cantidad de veces que se repite un valor
+     * @return
+     */
+    public int contarValorRepetido(T valor){
+         int aux = 0;
+         Nodo<T> actual = primero;
+         while (actual != null) {
+             if(actual.getDato().equals(valor)){
+                 aux++;
+             }
+             actual = actual.getProximo();
+         }
+         return aux;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
