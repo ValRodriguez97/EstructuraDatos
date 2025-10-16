@@ -14,6 +14,12 @@ public class Pila<T> {
         this.cima = null;
     }
 
+    //Metodo para crear una pila vacia
+    public static <T> Pila<T> crearPila(int capacidadMaxima){
+        return new Pila<>(capacidadMaxima);
+    }
+
+    //Metodo Push
     public void empilar(T dato){
         if (elementos == capacidadMaxima) {
             throw new IllegalStateException("La pila está llena");
@@ -24,6 +30,7 @@ public class Pila<T> {
         elementos++;
     }
 
+    //Metodo Pop
     public T desempilar(){
         if (elementos == 0) {
             throw new IllegalStateException("La pila está vacía");
@@ -52,7 +59,13 @@ public class Pila<T> {
         System.out.println(" <- Fondo");
     }
 
+    //Metodo para verificar si esta vacia
+    public boolean estaVacia(){
+        return cima == null;
+    }
 
-
-
+    //Metodo para verificar si esta llena
+    public boolean estaLLena(){
+        return elementos >= capacidadMaxima;
+    }
 }
